@@ -10,15 +10,13 @@ var game;
         var Boss = (function (_super) {
             __extends(Boss, _super);
             function Boss(controller, assets) {
-                _super.call(this);
+                _super.call(this, assets['boss']);
                 this._bmpList = {};
                 this._vital = Boss.MAX_VITAL;
 
                 this._controller = controller;
                 this._stage = controller.getStage();
                 this._assets = assets;
-
-                this._initialize();
             }
             Boss.prototype.setPos = function () {
                 this.x = this._stage.canvas.width / 2;
@@ -46,53 +44,12 @@ var game;
                     return;
                 }
 
-                if (this._vital === Boss.MAX_VITAL / 2) {
-                    this._changeAvatar();
-                }
-
                 this._vital--;
                 this._blink();
             };
 
             Boss.prototype.getVital = function () {
                 return this._vital;
-            };
-
-            Boss.prototype.getWidth = function () {
-                return this._assets['avaCloth'].naturalWidth;
-            };
-
-            Boss.prototype.getHeight = function () {
-                return this._assets['avaCloth'].naturalHeight;
-            };
-
-            Boss.prototype.destroy = function () {
-                this.removeAllChildren();
-            };
-
-            Boss.prototype._initialize = function () {
-                this._bmpList['avaClothDefault'] = new createjs.Bitmap(this._assets['avaClothDefault']);
-                this._bmpList['avaClothDefault'].visible = false;
-                this.addChild(this._bmpList['avaClothDefault']);
-
-                this._bmpList['avaCloth'] = new createjs.Bitmap(this._assets['avaCloth']);
-                this.addChild(this._bmpList['avaCloth']);
-
-                this._bmpList['avaHair2'] = new createjs.Bitmap(this._assets['avaHair2']);
-                this.addChild(this._bmpList['avaHair2']);
-
-                this._bmpList['avaArmDefault'] = new createjs.Bitmap(this._assets['avaArmDefault']);
-                this._bmpList['avaArmDefault'].visible = false;
-                this.addChild(this._bmpList['avaArmDefault']);
-
-                this._bmpList['avaFace'] = new createjs.Bitmap(this._assets['avaFace']);
-                this.addChild(this._bmpList['avaFace']);
-
-                this._bmpList['avaHair'] = new createjs.Bitmap(this._assets['avaHair']);
-                this.addChild(this._bmpList['avaHair']);
-
-                this._bmpList['avaArm'] = new createjs.Bitmap(this._assets['avaArm']);
-                this.addChild(this._bmpList['avaArm']);
             };
 
             Boss.prototype._moveRandom = function () {
@@ -117,15 +74,6 @@ var game;
 
             Boss.prototype._blink = function () {
                 createjs.Tween.get(this).set({ visible: false }).wait(100).set({ visible: true });
-            };
-
-            Boss.prototype._changeAvatar = function () {
-                createjs.Tween.get(this._bmpList['avaCloth']).to({ x: 150, y: -50, alpha: 0 }, 1000, createjs.Ease.cubicOut).set({ visible: false });
-
-                createjs.Tween.get(this._bmpList['avaArm']).to({ x: -150, y: -50, alpha: 0 }, 1000, createjs.Ease.cubicOut).set({ visible: false });
-
-                this._bmpList['avaClothDefault'].visible = true;
-                this._bmpList['avaArmDefault'].visible = true;
             };
 
             Boss.prototype._explode = function () {
@@ -154,7 +102,7 @@ var game;
             Boss.POINT = 20000;
             Boss.MAX_VITAL = 100;
             return Boss;
-        })(createjs.Container);
+        })(view.base.Airplane);
         view.Boss = Boss;
     })(game.view || (game.view = {}));
     var view = game.view;

@@ -13,7 +13,7 @@ module game.view {
    * @class
    * @name Boss
    */
-  export class Boss extends createjs.Container {
+  export class Boss extends view.base.Airplane {
 
     static BULLET_NUM: number = 20;
     static POINT: number = 20000;
@@ -34,13 +34,11 @@ module game.view {
      */
     constructor(controller: controller.AppController, assets: Object) {
 
-      super();
+      super(assets['boss']);
 
       this._controller = controller;
       this._stage = controller.getStage();
       this._assets = assets;
-
-      this._initialize();
     }
 
     // ==========================================
@@ -97,11 +95,6 @@ module game.view {
         return;
       }
 
-      if(this._vital === Boss.MAX_VITAL / 2) {
-
-        this._changeAvatar();
-      }
-
       this._vital--;
       this._blink();
     }
@@ -114,62 +107,9 @@ module game.view {
       return this._vital;
     }
 
-    /**
-     * 幅を取得する.
-     */
-    public getWidth(): number {
-
-      return this._assets['avaCloth'].naturalWidth;
-    }
-
-    /**
-     * 高さを取得する.
-     */
-    public getHeight(): number {
-
-      return this._assets['avaCloth'].naturalHeight;
-    }
-
-    /**
-     * 表示している子要素を破棄する.
-     */
-    public destroy() {
-
-      this.removeAllChildren();
-    }
-
     // ==========================================
     //   Private
     // ==========================================
-
-    /**
-     * 初期化する.
-     */
-    private _initialize() {
-
-      this._bmpList['avaClothDefault'] = new createjs.Bitmap(this._assets['avaClothDefault']);
-      this._bmpList['avaClothDefault'].visible = false;
-      this.addChild(this._bmpList['avaClothDefault']);
-
-      this._bmpList['avaCloth'] = new createjs.Bitmap(this._assets['avaCloth']);
-      this.addChild(this._bmpList['avaCloth']);
-
-      this._bmpList['avaHair2'] = new createjs.Bitmap(this._assets['avaHair2']);
-      this.addChild(this._bmpList['avaHair2']);
-
-      this._bmpList['avaArmDefault'] = new createjs.Bitmap(this._assets['avaArmDefault']);
-      this._bmpList['avaArmDefault'].visible = false;
-      this.addChild(this._bmpList['avaArmDefault']);
-
-      this._bmpList['avaFace'] = new createjs.Bitmap(this._assets['avaFace']);
-      this.addChild(this._bmpList['avaFace']);
-
-      this._bmpList['avaHair'] = new createjs.Bitmap(this._assets['avaHair']);
-      this.addChild(this._bmpList['avaHair']);
-
-      this._bmpList['avaArm'] = new createjs.Bitmap(this._assets['avaArm']);
-      this.addChild(this._bmpList['avaArm']);
-    }
 
     /**
      * ランダムに動く.
@@ -212,23 +152,6 @@ module game.view {
         .set({ visible: false })
         .wait(100)
         .set({ visible: true });
-    }
-
-    /**
-     * アバターを変更する.
-     */
-    private _changeAvatar() {
-
-      createjs.Tween.get(this._bmpList['avaCloth'])
-        .to({ x: 150, y: -50, alpha: 0 }, 1000, createjs.Ease.cubicOut)
-        .set({ visible: false });
-
-      createjs.Tween.get(this._bmpList['avaArm'])
-        .to({ x: -150, y: -50, alpha: 0 }, 1000, createjs.Ease.cubicOut)
-        .set({ visible: false });
-
-      this._bmpList['avaClothDefault'].visible = true;
-      this._bmpList['avaArmDefault'].visible = true;
     }
 
     /**

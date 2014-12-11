@@ -9,7 +9,6 @@
 /// <reference path="../view/enemy2.ts" />
 /// <reference path="../view/enemy3.ts" />
 /// <reference path="../view/boss.ts" />
-/// <reference path="../view/boss2.ts" />
 /// <reference path="../view/player.ts" />
 /// <reference path="../view/bullet.ts" />
 /// <reference path="../view/base/airplane.ts" />
@@ -457,25 +456,14 @@ module game.controller {
      */
     private _createBoss() {
 
-      /*
-      var assets: Object = this._model.getAssets([
-            'boss', 'bossBullet', 'bossLaser', 'enemyBullet', 'enemyExplode',
-            'avaFace', 'avaArm', 'avaCloth', 'avaHair', 'avaHair2', 'avaArmDefault', 'avaClothDefault'
-          ]),
-          img: HTMLImageElement = assets['avaCloth'],
-          boss: view.Boss = new game.view.Boss(this, assets);
-          */
-
-
       var assets: Object = this._model.getAssets([
             'boss', 'bossBullet', 'bossLaser', 'enemyBullet', 'enemyExplode'
           ]),
           img: HTMLImageElement = assets['boss'],
-          boss: view.Boss2 = new game.view.Boss2(this, assets);
+          boss: view.Boss = new game.view.Boss(this, assets);
 
       boss.regX = img.naturalWidth / 2;
       boss.regY = img.naturalHeight / 2;
-      //boss.scaleX = boss.scaleY = 1.5;
       boss.name = 'boss';
       boss.setPos();
       boss.move();

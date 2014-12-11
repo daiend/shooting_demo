@@ -262,11 +262,10 @@ var game;
             AppController.prototype._createBoss = function () {
                 var assets = this._model.getAssets([
                     'boss', 'bossBullet', 'bossLaser', 'enemyBullet', 'enemyExplode'
-                ]), img = assets['boss'], boss = new game.view.Boss2(this, assets);
+                ]), img = assets['boss'], boss = new game.view.Boss(this, assets);
 
                 boss.regX = img.naturalWidth / 2;
                 boss.regY = img.naturalHeight / 2;
-
                 boss.name = 'boss';
                 boss.setPos();
                 boss.move();
