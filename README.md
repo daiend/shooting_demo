@@ -7,3 +7,6 @@ TypeScript + createJS shooting demo.
 http://game.yu-nagi.com/  
 ・MP3  
 http://www.senses-circuit.com/
+
+###LICENSE
+MIT
